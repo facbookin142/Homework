@@ -4,40 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting to WhatsApp...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #timer {
+            font-size: 50px;
+            font-weight: bold;
+            color: red;
+        }
+        #whatsappLink {
+            display: inline-block;
+            font-size: 20px;
+            text-decoration: none;
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
     <script>
-        function redirectToWhatsApp() {
-            // WhatsApp नंबर लिस्ट
-            var numbers = [
-                "918057657536",
-                "918522812988",
-                "919360373644",
-                "917783000203",
-                "919835871827",
-                "917710594785",
-                "919171174186",
-                "919903210566",
-                "919916747846",
-                "919860169581"
-            ];
-
-            // Random नंबर चुनना
-            var randomIndex = Math.floor(Math.random() * numbers.length);
-            var selectedNumber = numbers[randomIndex];
-
-            // WhatsApp लिंक जनरेट करना
-            var whatsappLink = "https://wa.me/" + selectedNumber;
-
-            // Redirect करना
-            window.location.replace(whatsappLink);
+        function decryptNumber(encrypted) {
+            return atob(encrypted); // Base64 डिकोडिंग
         }
 
-        // जब पेज खुले तो तुरंत नंबर बदले
-        window.onload = redirectToWhatsApp;
+        function getStoredNumberIndex() {
+            let storedTime = localStorage.getItem("numberTimestamp");
+            let storedIndex = localStorage.getItem("numberIndex");
+            let currentTime = Date.now();
 
-        // हर 10 सेकंड में नया नंबर लाने के लिए सेटइंटरवल का उपयोग करें
-        setInterval(redirectToWhatsApp, 10000);
+            // अगर 1 मिनट (60000 ms) से ज्यादा हो गया है, तो नया नंबर चुनें
+            if (!storedTime || currentTime - storedTime > 60000) {
+                let newIndex = Math.floor(Math.random() * encryptedNumbers.length);
+                localStorage.setItem("numberIndex", newIndex);
+                localStorage.setItem("numberTimestamp", currentTime);
+                return newIndex;
+            }
+
+            return storedIndex;
+        }
+
+        function updateTimer() {
+            let storedTime = localStorage.getItem("numberTimestamp");
+            let currentTime = Date.now();
+            let timePassed = currentTime - storedTime;
+            let timeLeft = 60000 - timePassed; // 1 मिनट (60000 ms)
+
+            if (timeLeft <= 0) {
+                document.getElementById("timer").innerText = "00:00";
+                location.reload(); // नया नंबर लेने के लिए पेज रीफ्रेश करें
+            } else {
+                let minutes = Math.floor(timeLeft / 60000);
+                let seconds = Math.floor((timeLeft % 60000) / 1000);
+                document.getElementById("timer").innerText = 
+                    (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+                setTimeout(updateTimer, 1000); // हर सेकंड अपडेट होगा
+            }
+        }
+
+        function redirectToWhatsApp() {
+            // एन्क्रिप्टेड नंबर (Base64)
+            var encryptedNumbers = [
+                "OTE2Mzc1MDI1NTgx",
+                "OTE5NTgxNTg4MDE5",
+                "OTE4MjYxOTM1NzIz",
+                "OTE5ODU1NzMwODM4",
+                "OTE5NTg1NzQyNDUx",
+                "OTE4MTkwOTgzOTk2",
+                "OTE5NzQ4OTE4MTY1",
+                "OTE5ODYxNTA0NzYx",
+                "OTE5ODg4MDE1MzA2",
+                "OTE3Mjg5MDYzNzg3"
+            ];
+
+            var index = getStoredNumberIndex();
+            var selectedNumber = decryptNumber(encryptedNumbers[index]);
+
+            var whatsappLink = "https://wa.me/" + selectedNumber;
+
+            document.getElementById("whatsappLink").href = whatsappLink;
+            document.getElementById("whatsappLink").innerText = "WhatsApp पर जाएं";
+
+            updateTimer(); // काउंटडाउन शुरू करें
+        }
     </script>
 </head>
-<body>
+<body onload="redirectToWhatsApp()">
+    <h2>नया नंबर मिलने तक का समय:</h2>
+    <h1 id="timer">01:00</h1>
+    <a id="whatsappLink" href="#" target="_blank">WhatsApp पर जाएं</a>
 </body>
 </html>
