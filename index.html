@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Redirect</title>
-    <script type="text/javascript">
-        // Redirect immediately when the page loads
-        window.onload = function() {
-            window.location.href = "https://lihi3.com/pAPRb"; // Change this to the link you want
-        };
+    <title>Redirecting to WhatsApp...</title>
+    <script>
+        function redirectToWhatsApp() {
+            // WhatsApp नंबर लिस्ट (सिर्फ नए नंबर)
+            var numbers = [
+                "919599021124",
+                "917808525295",
+                "919733761957",
+                "918787612475",
+                "919771880641",
+                "919549615834",
+                "917463815510",
+                "919934673071",
+                "919801640441",
+                "917985862361",
+                "917896299258",
+                "919137807002",
+                "919546841196",
+                "919744678410",
+                "916002695573",
+                "919733761957"
+            ];
 
-         // window.onload = function() {
-            // window.location.href = "workfromathomeredirect"; // Change this to the link you want
-        // }; 
+            // Random नंबर चुनना
+            var randomIndex = Math.floor(Math.random() * numbers.length);
+            var selectedNumber = numbers[randomIndex];
+
+            // WhatsApp लिंक जनरेट करना और तुरंत रीडायरेक्ट करना
+            window.location.replace("https://wa.me/" + selectedNumber);
+        }
+
+        // पेज लोड होते ही तुरंत रीडायरेक्ट
+        window.onload = redirectToWhatsApp;
     </script>
 </head>
 <body>
-    <!-- No content in the body -->
 </body>
 </html>
