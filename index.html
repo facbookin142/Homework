@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Redirect</title>
-    <script type="text/javascript">
-        // Redirect immediately when the page loads
-        window.onload = function() {
-            window.location.href = "https://t.me/SFAEarnings"; // Change this to the link you want
-        };
+    <title>Redirecting to WhatsApp...</title>
+    <script>
+        function redirectToWhatsApp() {
+            // WhatsApp नंबर लिस्ट
+            var numbers = [
+                "918057657536",
+                "918522812988",
+                "919360373644",
+                "917783000203",
+                "919835871827",
+                "917710594785",
+                "919171174186",
+                "919903210566",
+                "919916747846",
+                "919860169581"
+            ];
 
-         // window.onload = function() {
-            // window.location.href = "workfromathomeredirect"; // Change this to the link you want
-        // }; 
+            // Random नंबर चुनना
+            var randomIndex = Math.floor(Math.random() * numbers.length);
+            var selectedNumber = numbers[randomIndex];
+
+            // WhatsApp लिंक जनरेट करना
+            var whatsappLink = "https://wa.me/" + selectedNumber;
+
+            // Redirect करना
+            window.location.replace(whatsappLink);
+        }
+
+        // जब पेज खुले तो तुरंत नंबर बदले
+        window.onload = redirectToWhatsApp;
+
+        // हर 10 सेकंड में नया नंबर लाने के लिए सेटइंटरवल का उपयोग करें
+        setInterval(redirectToWhatsApp, 10000);
     </script>
 </head>
 <body>
-    <!-- No content in the body -->
 </body>
 </html>
