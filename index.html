@@ -26,9 +26,15 @@
             margin-top: 20px;
         }
     </style>
+</head>
+<body>
+    <h2>नया नंबर मिलने तक का समय:</h2>
+    <h1 id="timer">01:00</h1>
+    <a id="whatsappLink" href="#" target="_blank">WhatsApp पर जाएं</a>
+
     <script>
         function decryptNumber(encrypted) {
-            return atob(encrypted); // Base64 डिकोडिंग
+            return atob(encrypted);
         }
 
         function getStoredNumberIndex() {
@@ -36,14 +42,13 @@
             let storedIndex = localStorage.getItem("numberIndex");
             let currentTime = Date.now();
 
-            // अगर 1 मिनट (60000 ms) से ज्यादा हो गया है, तो नया नंबर चुनें
+            // हर 1 मिनट में नया नंबर चुनें
             if (!storedTime || currentTime - storedTime > 60000) {
                 let newIndex = Math.floor(Math.random() * encryptedNumbers.length);
                 localStorage.setItem("numberIndex", newIndex);
                 localStorage.setItem("numberTimestamp", currentTime);
                 return newIndex;
             }
-
             return storedIndex;
         }
 
@@ -51,25 +56,21 @@
             let storedTime = localStorage.getItem("numberTimestamp");
             let currentTime = Date.now();
             let timePassed = currentTime - storedTime;
-            let timeLeft = 60000 - timePassed; // 1 मिनट (60000 ms)
+            let timeLeft = 60000 - timePassed;
 
             if (timeLeft <= 0) {
-                document.getElementById("timer").innerText = "00:00";
                 location.reload(); // नया नंबर लेने के लिए पेज रीफ्रेश करें
             } else {
                 let minutes = Math.floor(timeLeft / 60000);
                 let seconds = Math.floor((timeLeft % 60000) / 1000);
                 document.getElementById("timer").innerText = 
                     (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-
-                setTimeout(updateTimer, 1000); // हर सेकंड अपडेट होगा
             }
+            setTimeout(updateTimer, 1000); // हर सेकंड अपडेट होगा
         }
 
         function redirectToWhatsApp() {
-            // एन्क्रिप्टेड नंबर (Base64)
             var encryptedNumbers = [
-                "OTE2Mzc1MDI1NTgx",
                 "OTE5NTgxNTg4MDE5",
                 "OTE4MjYxOTM1NzIz",
                 "OTE5ODU1NzMwODM4",
@@ -89,13 +90,10 @@
             document.getElementById("whatsappLink").href = whatsappLink;
             document.getElementById("whatsappLink").innerText = "WhatsApp पर जाएं";
 
-            updateTimer(); // काउंटडाउन शुरू करें
+            updateTimer();
         }
+
+        window.onload = redirectToWhatsApp;
     </script>
-</head>
-<body onload="redirectToWhatsApp()">
-    <h2>नया नंबर मिलने तक का समय:</h2>
-    <h1 id="timer">01:00</h1>
-    <a id="whatsappLink" href="#" target="_blank">WhatsApp पर जाएं</a>
 </body>
 </html>
