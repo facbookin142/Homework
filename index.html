@@ -1,99 +1,21 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to WhatsApp...</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        #timer {
-            font-size: 50px;
-            font-weight: bold;
-            color: red;
-        }
-        #whatsappLink {
-            display: inline-block;
-            font-size: 20px;
-            text-decoration: none;
-            background-color: green;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Auto Redirect</title>
+    <script type="text/javascript">
+        // Redirect immediately when the page loads
+        window.onload = function() {
+            window.location.href = "https://t.me/SFAEarnings"; // Change this to the link you want
+        };
+
+         // window.onload = function() {
+            // window.location.href = "workfromathomeredirect"; // Change this to the link you want
+        // }; 
+    </script>
 </head>
 <body>
-    <h2>नया नंबर मिलने तक का समय:</h2>
-    <h1 id="timer">01:00</h1>
-    <a id="whatsappLink" href="#" target="_blank">WhatsApp पर जाएं</a>
-
-    <script>
-        function decryptNumber(encrypted) {
-            return atob(encrypted);
-        }
-
-        function getStoredNumberIndex() {
-            let storedTime = localStorage.getItem("numberTimestamp");
-            let storedIndex = localStorage.getItem("numberIndex");
-            let currentTime = Date.now();
-
-            // हर 1 मिनट में नया नंबर चुनें
-            if (!storedTime || currentTime - storedTime > 60000) {
-                let newIndex = Math.floor(Math.random() * encryptedNumbers.length);
-                localStorage.setItem("numberIndex", newIndex);
-                localStorage.setItem("numberTimestamp", currentTime);
-                return newIndex;
-            }
-            return storedIndex;
-        }
-
-        function updateTimer() {
-            let storedTime = localStorage.getItem("numberTimestamp");
-            let currentTime = Date.now();
-            let timePassed = currentTime - storedTime;
-            let timeLeft = 60000 - timePassed;
-
-            if (timeLeft <= 0) {
-                location.reload(); // नया नंबर लेने के लिए पेज रीफ्रेश करें
-            } else {
-                let minutes = Math.floor(timeLeft / 60000);
-                let seconds = Math.floor((timeLeft % 60000) / 1000);
-                document.getElementById("timer").innerText = 
-                    (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-            }
-            setTimeout(updateTimer, 1000); // हर सेकंड अपडेट होगा
-        }
-
-        function redirectToWhatsApp() {
-            var encryptedNumbers = [
-                "OTE5NTgxNTg4MDE5",
-                "OTE4MjYxOTM1NzIz",
-                "OTE5ODU1NzMwODM4",
-                "OTE5NTg1NzQyNDUx",
-                "OTE4MTkwOTgzOTk2",
-                "OTE5NzQ4OTE4MTY1",
-                "OTE5ODYxNTA0NzYx",
-                "OTE5ODg4MDE1MzA2",
-                "OTE3Mjg5MDYzNzg3"
-            ];
-
-            var index = getStoredNumberIndex();
-            var selectedNumber = decryptNumber(encryptedNumbers[index]);
-
-            var whatsappLink = "https://wa.me/" + selectedNumber;
-
-            document.getElementById("whatsappLink").href = whatsappLink;
-            document.getElementById("whatsappLink").innerText = "WhatsApp पर जाएं";
-
-            updateTimer();
-        }
-
-        window.onload = redirectToWhatsApp;
-    </script>
+    <!-- No content in the body -->
 </body>
 </html>
