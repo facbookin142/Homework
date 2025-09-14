@@ -3,19 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Redirect</title>
+    <title>WhatsApp Redirect</title>
     <script type="text/javascript">
-        // Redirect immediately when the page loads
         window.onload = function() {
-            window.location.href = "https://t.me/+3t2rF83CNHI1OWRl"; // Change this to the link you want
-        };
+            // Your list of WhatsApp numbers
+            const numbers = [
+                "919374718191",
+                "919374718192",
+                "919374718195",
+                "919374718199"
+            ];
 
-         // window.onload = function() {
-            // window.location.href = "workfromathomeredirect"; // Change this to the link you want
-        // }; 
+            // Get the current index from localStorage, or start at 0 if it's the first visit
+            let currentIndex = localStorage.getItem('whatsappIndex');
+            
+            // If it's the first time, or the index is not a number, set it to 0
+            if (currentIndex === null || isNaN(currentIndex)) {
+                currentIndex = 0;
+            } else {
+                // Convert the stored string back to a number
+                currentIndex = parseInt(currentIndex);
+            }
+
+            // Get the number from the list based on the current index
+            const phoneNumber = numbers[currentIndex];
+
+            // Update the index for the next visit
+            // Use the modulo operator (%) to loop back to 0 when we reach the end of the list
+            let nextIndex = (currentIndex + 1) % numbers.length;
+            localStorage.setItem('whatsappIndex', nextIndex);
+
+            // Redirect to the WhatsApp number
+            window.location.href = `https://wa.me/${phoneNumber}`;
+        };
     </script>
 </head>
 <body>
-    <!-- No content in the body -->
-</body>
+    </body>
 </html>
