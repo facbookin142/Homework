@@ -1,43 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Redirect</title>
-    <script type="text/javascript">
-        window.onload = function() {
-            // Your list of WhatsApp numbers
-            const numbers = [
-                "919374718191",
-                "919374718192",
-                "919374718195",
-                "919374718199"
-            ];
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SFA Earnings | Professional</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #434158 0%, #24223A 100%);
+    color: #fff;
+  }
 
-            // Get the current index from localStorage, or start at 0 if it's the first visit
-            let currentIndex = localStorage.getItem('whatsappIndex');
-            
-            // If it's the first time, or the index is not a number, set it to 0
-            if (currentIndex === null || isNaN(currentIndex)) {
-                currentIndex = 0;
-            } else {
-                // Convert the stored string back to a number
-                currentIndex = parseInt(currentIndex);
-            }
+  .window {
+    width: 95%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+    background: #2a2a3c;
+    animation: fadeIn 1s ease-in-out;
+  }
 
-            // Get the number from the list based on the current index
-            const phoneNumber = numbers[currentIndex];
+  /* Header */
+  .window-header {
+    background: #1e1e2e;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .window-header .buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .close { background: #ff5f57; }
+  .minimize { background: #ffbd2e; }
+  .maximize { background: #28c840; }
+  .window-title {
+    color: #cfcfcf;
+    font-weight: 600;
+    font-size: 0.95em;
+    margin: 0 auto;
+  }
 
-            // Update the index for the next visit
-            // Use the modulo operator (%) to loop back to 0 when we reach the end of the list
-            let nextIndex = (currentIndex + 1) % numbers.length;
-            localStorage.setItem('whatsappIndex', nextIndex);
+  /* Content */
+  .window-content {
+    padding: 20px 20px 15px 20px;
+    text-align: center;
+  }
 
-            // Redirect to the WhatsApp number
-            window.location.href = `https://wa.me/${phoneNumber}`;
-        };
-    </script>
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-bottom: 12px;
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+    animation: glowPulse 2.5s infinite alternate;
+  }
+
+  .channel-name {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin: 8px 0;
+    color: #fff;
+    text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+    animation: glowPulseText 3s infinite alternate;
+  }
+
+  .tagline {
+    font-size: 0.95em;
+    color: #d0d0d0;
+    margin-bottom: 20px;
+    text-shadow: 0 0 6px #ff00ff, 0 0 12px #ff00ff;
+    animation: glowPulseText 4s infinite alternate;
+  }
+
+  .links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05em;
+    color: #fff;
+    background: linear-gradient(45deg, #0088CC, #006AA7);
+    cursor: pointer;
+    gap: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .link-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  .link-btn img {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .insta {
+    background: linear-gradient(45deg, #F56040, #E1306C, #C13584);
+  }
+
+  .footer {
+    margin-top: 15px;
+    font-size: 0.8em;
+    color: #b0b0b0;
+  }
+
+  .disclaimer {
+    margin-top: 15px;
+    padding: 12px;
+    background: #1e1e2e;
+    color: #fff;
+    font-size: 0.8em;
+    text-align: center;
+    border-top: 1px solid #444;
+    line-height: 1.5;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .disclaimer a {
+    color: #00f0ff;
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes glowPulse {
+    from { box-shadow: 0 0 15px #00f0ff, 0 0 25px #00f0ff; }
+    to { box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff; }
+  }
+
+  @keyframes glowPulseText {
+    from { text-shadow: 0 0 8px #00f0ff, 0 0 16px #00f0ff; }
+    to { text-shadow: 0 0 18px #00f0ff, 0 0 32px #00f0ff; }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .profile-pic { width: 90px; height: 90px; }
+    .channel-name { font-size: 1.5em; }
+    .tagline { font-size: 0.9em; }
+    .link-btn { font-size: 1em; padding: 10px; }
+  }
+</style>
 </head>
 <body>
-    </body>
+<div class="window">
+  <!-- Header -->
+  <div class="window-header">
+    <div class="buttons">
+      <span class="btn-circle close"></span>
+      <span class="btn-circle minimize"></span>
+      <span class="btn-circle maximize"></span>
+    </div>
+    <div class="window-title">SFA Earnings</div>
+    <div style="width:40px;"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="window-content">
+    <img src="https://iili.io/KlFSubS.md.jpg" alt="SFA Logo" class="profile-pic">
+    <h1 class="channel-name">SFA Earnings</h1>
+    <p class="tagline">Providing the Best Earning Opportunities</p>
+
+    <div class="links-section">
+      <a href="https://t.me/+3t2rF83CNHI1OWRl" class="link-btn">
+        <img src="https://iili.io/KlFSubS.md.jpg" alt="Official Telegram">Official Telegram
+        <i class="fab fa-telegram-plane"></i>
+      </a>
+      <a href="https://t.me/+TnUd6UjK9pk4MzQ1" class="link-btn">
+        <img src="https://iili.io/KlFDQVf.md.jpg" alt="Second Telegram">Second Telegram
+        <i class="fab fa-telegram-plane"></i>
+      </a>
+      <a href="https://www.instagram.com/fakharwajir?igsh=amxmZ2N3aDR1ZzRw" class="link-btn insta">
+        <i class="fab fa-instagram"></i>Instagram
+      </a>
+    </div>
+
+    <footer class="footer">
+      <p>Made with ❤️ for SFA Earnings</p>
+    </footer>
+
+    <div class="disclaimer">
+      All content on this website is for <strong>knowledge, information, educational purposes, and earning tips only</strong>. 
+      We <strong>do not promote or engage</strong> in any illegal activities and intend <strong>no harm</strong>.<br>
+      If you find anything incorrect, contact <a href="mailto:SFAEarnings@gmail.com">SFAEarnings@gmail.com</a>. 
+      We will <strong>correct it promptly</strong> and <strong>apologize</strong> for any inconvenience.
+    </div>
+  </div>
+</div>
+</body>
 </html>
