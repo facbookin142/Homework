@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Body & page load animation */
   body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -17,8 +18,17 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #434158 0%, #24223A 100%);
     color: #fff;
+    overflow: hidden;
+    animation: pageFadeIn 1.2s ease forwards;
+    opacity: 0;
   }
 
+  @keyframes pageFadeIn {
+    from { opacity: 0; transform: scale(0.98);}
+    to { opacity: 1; transform: scale(1);}
+  }
+
+  /* Window container */
   .window {
     width: 95%;
     max-width: 500px;
@@ -26,7 +36,13 @@
     overflow: hidden;
     box-shadow: 0 15px 50px rgba(0,0,0,0.7);
     background: #2a2a3c;
-    animation: fadeIn 1s ease-in-out;
+    transform: translateY(-20px);
+    animation: windowSlide 1s ease forwards;
+  }
+
+  @keyframes windowSlide {
+    from { opacity: 0; transform: translateY(-30px);}
+    to { opacity: 1; transform: translateY(0);}
   }
 
   /* Header */
@@ -63,6 +79,7 @@
     text-align: center;
   }
 
+  /* Profile picture */
   .profile-pic {
     width: 100px;
     height: 100px;
@@ -71,25 +88,40 @@
     margin-bottom: 12px;
     box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff;
     animation: glowPulse 2.5s infinite alternate;
+    transition: transform 0.3s;
+  }
+  .profile-pic:hover {
+    transform: scale(1.1) rotate(5deg);
   }
 
+  @keyframes glowPulse {
+    0% { box-shadow: 0 0 15px #00f0ff, 0 0 25px #00f0ff; }
+    100% { box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff; }
+  }
+
+  /* Channel name and tagline glowing text */
   .channel-name {
     font-size: 1.8em;
     font-weight: 700;
     margin: 8px 0;
     color: #fff;
     text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-    animation: glowPulseText 3s infinite alternate;
+    animation: glowText 3s infinite alternate;
   }
-
   .tagline {
     font-size: 0.95em;
     color: #d0d0d0;
     margin-bottom: 20px;
     text-shadow: 0 0 6px #ff00ff, 0 0 12px #ff00ff;
-    animation: glowPulseText 4s infinite alternate;
+    animation: glowText 4s infinite alternate;
   }
 
+  @keyframes glowText {
+    0% { text-shadow: 0 0 6px #00f0ff, 0 0 12px #00f0ff; }
+    100% { text-shadow: 0 0 14px #00f0ff, 0 0 28px #00f0ff; }
+  }
+
+  /* Links */
   .links-section {
     display: flex;
     flex-direction: column;
@@ -109,13 +141,10 @@
     background: linear-gradient(45deg, #0088CC, #006AA7);
     cursor: pointer;
     gap: 8px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .link-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+    position: relative;
+    overflow: hidden;
   }
 
   .link-btn img {
@@ -124,8 +153,43 @@
     border-radius: 6px;
   }
 
+  /* Hover & click animation with glowing effect */
+  .link-btn::after {
+    content: '';
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: rgba(255,255,255,0.1);
+    transition: all 0.7s ease-in-out;
+  }
+
+  .link-btn:hover::after {
+    width: 0;
+    height: 0;
+  }
+
+  .link-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 0 20px #00f0ff;
+    filter: brightness(1.1);
+  }
+
+  .link-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3), 0 0 15px #00f0ff;
+  }
+
   .insta {
     background: linear-gradient(45deg, #F56040, #E1306C, #C13584);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  }
+
+  .insta:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 0 20px #E1306C;
+    filter: brightness(1.1);
   }
 
   .footer {
@@ -149,21 +213,6 @@
   .disclaimer a {
     color: #00f0ff;
     text-decoration: underline;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes glowPulse {
-    from { box-shadow: 0 0 15px #00f0ff, 0 0 25px #00f0ff; }
-    to { box-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff; }
-  }
-
-  @keyframes glowPulseText {
-    from { text-shadow: 0 0 8px #00f0ff, 0 0 16px #00f0ff; }
-    to { text-shadow: 0 0 18px #00f0ff, 0 0 32px #00f0ff; }
   }
 
   /* Responsive */
@@ -195,15 +244,15 @@
     <p class="tagline">Providing the Best Earning Opportunities</p>
 
     <div class="links-section">
-      <a href="https://t.me/+3t2rF83CNHI1OWRl" class="link-btn">
+      <a href="https://t.me/+3t2rF83CNHI1OWRl" class="link-btn" target="_blank">
         <img src="https://iili.io/KlFSubS.md.jpg" alt="Official Telegram">Official Telegram
         <i class="fab fa-telegram-plane"></i>
       </a>
-      <a href="https://t.me/+TnUd6UjK9pk4MzQ1" class="link-btn">
+      <a href="https://t.me/+TnUd6UjK9pk4MzQ1" class="link-btn" target="_blank">
         <img src="https://iili.io/KlFDQVf.md.jpg" alt="Second Telegram">Second Telegram
         <i class="fab fa-telegram-plane"></i>
       </a>
-      <a href="https://www.instagram.com/fakharwajir?igsh=amxmZ2N3aDR1ZzRw" class="link-btn insta">
+      <a href="https://www.instagram.com/fakharwajir?igsh=amxmZ2N3aDR1ZzRw" class="link-btn insta" target="_blank">
         <i class="fab fa-instagram"></i>Instagram
       </a>
     </div>
