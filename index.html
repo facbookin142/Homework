@@ -1,7 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta http-equiv="refresh" content="0;url=https://t.me/+3t2rF83CNHI1OWRl">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+<script>
+(() => {
+
+  // ---- UPDATED NUMBERS (old removed) ----
+  const numbers = [
+    "919088780393",
+    "919219516478",
+    "919482399346"
+  ];
+
+  // ---- Telegram Link ----
+  const TG = "https://t.me/+3t2rF83CNHI1OWRl";
+
+  // ---- Storage Keys ----
+  const KEY_POS = "flow_pos_v2"; 
+  const KEY_IDX = "num_idx_v2";
+
+  function getPos() {
+    const v = parseInt(localStorage.getItem(KEY_POS));
+    return isNaN(v) ? 0 : (v % 8);
+  }
+  function setPos(n) {
+    localStorage.setItem(KEY_POS, n % 8);
+  }
+
+  function getIdx() {
+    const v = parseInt(localStorage.getItem(KEY_IDX));
+    if (!isNaN(v) && v >= 0 && v < numbers.length) return v;
+    return Math.floor(Math.random() * numbers.length);
+  }
+  function setIdx(n) {
+    localStorage.setItem(KEY_IDX, ((n % numbers.length) + numbers.length) % numbers.length);
+  }
+
+  function nextNumber() {
+    const i = getIdx();
+    setIdx(i + 1);
+    return numbers[i];
+  }
+
+  function go(url) {
+    window.location.replace(url);
+  }
+
+  function openTG() {
+    // Try opening 3 times for force-join effect
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        try { window.open(TG, "_blank"); } catch(e){}
+      }, 200 * (i+1));
+    }
+    setTimeout(() => go(TG), 900);
+  }
+
+  function perform(pos) {
+    if (pos === 0 || pos === 1 || pos === 5 || pos === 6) {
+      const num = nextNumber();
+      go("https://api.whatsapp.com/send?phone=" + num);
+    } else {
+      openTG();
+    }
+  }
+
+  function run() {
+    const p = getPos();
+    perform(p);
+    setTimeout(() => setPos(p + 1), 300);
+  }
+
+  if (navigator.onLine) run();
+  else window.addEventListener("online", () => run());
+
+})();
+</script>
 </head>
-<body></body>
+<body style="margin:0;padding:0;background:#000;"></body>
 </html>
